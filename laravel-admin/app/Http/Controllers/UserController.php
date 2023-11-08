@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Response;
+use App\Http\Request\UserCreateRequest;
 
 
 class UserController extends Controller
@@ -18,12 +19,12 @@ class UserController extends Controller
         return User::find($id);
     }
 
-    public function store(Request $request){
+    public function store(UserCreateRequest $request){
         $user = User::create([
                 'first_name' => $request->input('first_name'),
                 'last_name' => $request->input('last_name'),
                 'email' => $request->input('email'),
-                'password' => Hash::make($request->input('password')),
+                'password' => Hash::make(123),
 
             ]);
         return response($user, Response::HTTP_CREATED);
@@ -35,7 +36,7 @@ class UserController extends Controller
                 'first_name' => $request->input('first_name'),
                 'last_name' => $request->input('last_name'),
                 'email' => $request->input('email'),
-                'password' => Hash::make($request->input('password')),
+                'password' => Hash::make(123),
             ]);
         return response($user, Response::HTTP_ACCEPTED);
     }
