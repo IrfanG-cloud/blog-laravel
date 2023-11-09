@@ -36,5 +36,14 @@ Route::post('comments', 'App\Http\Controllers\CommentController@store');
 Route::put('comments/{id}', 'App\Http\Controllers\CommentController@update');
 Route::delete('comments/{id}', 'App\Http\Controllers\CommentController@destroy');
 
+
+
+// ------------ media Api -------------//
+Route::get('medias', 'App\Http\Controllers\MediaController@index');
+Route::get('medias/{id}', 'App\Http\Controllers\MediaController@show');
+Route::post('medias', 'App\Http\Controllers\MediaController@store');
+Route::put('medias/{id}', 'App\Http\Controllers\MediaController@update');
+Route::delete('medias/{id}', 'App\Http\Controllers\MediaController@destroy');
+
 // Route::apiResource('users', 'App\Http\Controllers\UserController');
 
