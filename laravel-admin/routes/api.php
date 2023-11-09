@@ -21,12 +21,20 @@ Route::put('users/{id}', 'App\Http\Controllers\UserController@update');
 Route::delete('users/{id}', 'App\Http\Controllers\UserController@destroy');
 
 
-
+// ------------ post Api -------------//
 Route::get('posts', 'App\Http\Controllers\PostController@index');
 Route::get('posts/{id}', 'App\Http\Controllers\PostController@show');
 Route::post('posts', 'App\Http\Controllers\PostController@store');
 Route::put('posts/{id}', 'App\Http\Controllers\PostController@update');
 Route::delete('posts/{id}', 'App\Http\Controllers\PostController@destroy');
+
+
+// ------------ comments Api -------------//
+Route::get('comments', 'App\Http\Controllers\CommentController@index');
+Route::get('comments/{id}', 'App\Http\Controllers\CommentController@show');
+Route::post('comments', 'App\Http\Controllers\CommentController@store');
+Route::put('comments/{id}', 'App\Http\Controllers\CommentController@update');
+Route::delete('comments/{id}', 'App\Http\Controllers\CommentController@destroy');
 
 // Route::apiResource('users', 'App\Http\Controllers\UserController');
 
