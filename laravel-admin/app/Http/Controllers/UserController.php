@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Response;
+use App\Http\Resources\UserResource;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 
@@ -13,11 +14,12 @@ class UserController extends Controller
 {
 
     public function index(){
-        return User::paginate();
+        return User::with('role')->paginate();
     }
 
     public function show($id){
-        return User::find($id);
+        $user = User::find($id);
+        return new UserResource($user);
     }
 
     public function store(UserCreateRequest $request){
@@ -33,7 +35,7 @@ class UserController extends Controller
         
         $user = User::find($id);
 
-        $user->update($request->only('first_name', 'last_name', 'email'));
+        $user->update($request->only('first_name', 'last_name', 'email', 'role_id'));
 
         return response($user, Response::HTTP_ACCEPTED);
     }
