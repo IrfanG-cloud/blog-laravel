@@ -26,7 +26,6 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 
 
-
 // ------------ post Api -------------//
 // Route::get('posts', 'App\Http\Controllers\PostController@index');
 // Route::get('posts/{id}', 'App\Http\Controllers\PostController@show');
