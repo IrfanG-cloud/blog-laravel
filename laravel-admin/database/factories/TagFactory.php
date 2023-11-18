@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Comment>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class CommentFactory extends Factory
+class TagFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,9 +17,7 @@ class CommentFactory extends Factory
     public function definition(): array
     {
         return [
-            'comment'           => fake()->sentence(),
-            'user_id'           => mt_rand(1, 10),
-            'post_id'           => mt_rand(1, 20),
+            'tag' => fake()->unique()->word,
         ];
     }
 }

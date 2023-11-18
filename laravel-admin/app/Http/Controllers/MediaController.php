@@ -4,44 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Media;
+use App\Http\Requests\MediaUploadRequest;
+
 
 class MediaController extends Controller
 {
-    public function index(){
+    public function upload(MediaUploadRequest $request)
+    {
+        $file = $request->file('image');
+        $name = Str::random(10);
+        $url = \Storage::putFileAs('images', $file, $name . '.' . $file->extension());
 
-        return Media::all();
+        return [
+            'url' => env('APP_URL') . '/' . $url,
+        ];
     }
 
-    public function show($id){
-
-        return Media::find($id);
-    }
-
-    public function store(Request $request){
-        $media = Media::create([
-                'name' => $request->input('name'),
-            ]);
-        return response($media);
-    }
-
-    public function update(Request $request, $id){
-        
-        $media = Media::find($id);
-
-        $media->update([
-            'id' => $request->input('id'),
-            'name' => $request->input('name'),
-            ]);
-
-        return response($media);
-    }
-
-
-    public function destroy($id){
-        
-        Media::destroy($id);
-
-        return response(null);
-    }
+    
 
 }

@@ -14,7 +14,8 @@ class UserController extends Controller
 {
 
     public function index(){
-        return User::with('role')->paginate();
+        $users = User::with('role')->paginate();
+        return UserResource::collection($users);
     }
 
     public function show($id){
@@ -28,7 +29,7 @@ class UserController extends Controller
             $request->only('first_name', 'last_name', 'email', 'role_id')
             + ['password' => Hash::make(1234)]
         );
-        return response($user, Response::HTTP_CREATED);
+        return response(new UserResource($user), Response::HTTP_CREATED);
     }
 
     public function update(UserUpdateRequest $request, $id){
@@ -37,7 +38,7 @@ class UserController extends Controller
 
         $user->update($request->only('first_name', 'last_name', 'email', 'role_id'));
 
-        return response($user, Response::HTTP_ACCEPTED);
+        return response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
 
 
@@ -50,7 +51,13 @@ class UserController extends Controller
 
     public function user()
     {
-        return \Auth::user();
+        $user = \Auth::user();
+
+        return (new UserResource($user))->additional([
+            'data' => [
+                'permissions' => $user->permissions(),
+            ],
+        ]);
     }
 
 
@@ -60,7 +67,7 @@ class UserController extends Controller
 
         $user->update($request->only('first_name', 'last_name', 'email'));
 
-        return response($user, Response::HTTP_ACCEPTED);
+        return response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
 
     public function updatePassword(Request $request)
@@ -71,6 +78,6 @@ class UserController extends Controller
             'password' => Hash::make($request->input('password')),
         ]);
 
-        return response($user, Response::HTTP_ACCEPTED);
+        return response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
 }
