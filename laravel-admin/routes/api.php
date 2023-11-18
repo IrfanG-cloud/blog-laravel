@@ -15,14 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => 'auth:api'], function () {
+Route::post('login', 'App\Http\Controllers\AuthController@login');
 
+Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('users', 'App\Http\Controllers\UserController');
-    Route::apiResource('posts', 'App\Http\Controllers\Controller');
+    Route::apiResource('posts', 'App\Http\Controllers\PostController');
     Route::apiResource('comments', 'App\Http\Controllers\CommentController');
     Route::apiResource('medias', 'App\Http\Controllers\MediaController');
-    
-
+    Route::apiResource('roles', 'App\Http\Controllers\RoleController');
 });
 
 
