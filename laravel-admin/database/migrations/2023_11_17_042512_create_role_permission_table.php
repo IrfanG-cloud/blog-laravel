@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('role_permission', function (Blueprint $table) {
             $table->id();
-            $table->longText('comment');
-            $table->foreignId('post_id')->references('id')->on('posts')->onDelete('cascade');;
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');;
-            $table->timestamps();
+            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('permission_id');
+            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('permission_id')->references('id')->on('permissions');
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('role_permission');
     }
 };
