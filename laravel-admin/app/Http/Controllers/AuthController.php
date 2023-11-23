@@ -14,20 +14,37 @@ class AuthController extends Controller
 {
     public function login(Request $request){
 
+
+
+        
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
 
             $token = $user->createToken('admin')->accessToken;
 
-            return [
-                'token' => $token
-            ];
+            $cookie = \cookie('jwt', $token, 3600);
+
+            return \response([
+                'token' => $token,
+            ])->withCookie($cookie);
+
+            // return [
+            //     'token' => $token
+            // ];
         }
 
         return response([
             'error' => 'Invalid Credentials!',
         ], Response::HTTP_UNAUTHORIZED);
 
+    }
+
+    public function logout(){
+        $cookie = \Cookie::forget('jwt');
+
+            return \response([
+                'message' => 'success',
+            ])->withCookie($cookie);
     }
 
 

@@ -43,6 +43,28 @@ services:
       - 33066:3306
     networks:
       - app
-
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db:db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 33066
+      PMA_ARBITRARY: 1
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+    ports:
+      - 8081:80
+    networks:
+      - app
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - 6379:6379
 networks:
   app:
