@@ -20,7 +20,16 @@ class PostController extends Controller
     public function store(Request $request){
         $post = Post::create([
                 'title' => $request->input('title'),
-                'content' => $request->input('content'),
+                'slug' => $request->input('slug'),
+                'subtitle' => $request->input('subtitle'),
+                'content_raw' => $request->input('content_raw'),
+                'content_html' => $request->input('content_html'),
+                'post_image' => $request->input('post_image'),
+                'meta_description' => $request->input('meta_description'),
+                'user_id' => $request->input('user_id'),
+                'layout' => $request->input('layout'),
+                'is_draft' => $request->input('is_draft'),
+         
             ]);
         return response($post);
     }

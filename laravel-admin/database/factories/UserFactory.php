@@ -25,7 +25,7 @@ class UserFactory extends Factory
             'last_name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'password' => static::$password ??= Hash::make('password'),
-            'role_id' => \App\Models\Role::inRandomOrder()->first()->id,
+            'role_id' => rand(1, 3),
         ];
     }
 
