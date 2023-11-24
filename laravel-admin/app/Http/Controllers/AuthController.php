@@ -22,15 +22,15 @@ class AuthController extends Controller
 
             $token = $user->createToken('admin')->accessToken;
 
-            $cookie = \cookie('jwt', $token, 3600);
+            // $cookie = \cookie('jwt', $token, 3600);
 
-            return \response([
-                'token' => $token,
-            ])->withCookie($cookie);
+            // return \response([
+            //     'token' => $token,
+            // ])->withCookie($cookie);
 
-            // return [
-            //     'token' => $token
-            // ];
+            return [
+                'token' => $token
+            ];
         }
 
         return response([
