@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     //    Passport::loadKeysFrom(__DIR__.'/../secrets/oauth');
        $this->registerPolicies();
 
-    //    Passport::routes();
+       //Passport::routes();
 
         Gate::define('view', function (User $user, $model) {
             return $user->hasAccess("view_{$model}") || $user->hasAccess("edit_{$model}");
