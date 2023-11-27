@@ -19,6 +19,7 @@ return new class extends Migration
             $table->longText('content_raw');
             $table->longText('content_html')->nullable();
             $table->string('post_image');
+            $table->longText('meta_title');
             $table->longText('meta_description');
             $table->foreignId('user_id')
                   ->constrained()
