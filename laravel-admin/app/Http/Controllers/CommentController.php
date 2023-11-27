@@ -19,7 +19,7 @@ class CommentController extends Controller
 
     public function store(Request $request){
         $comment = Comment::create([
-                'name' => $request->input('name'),
+                'comment' => $request->input('comment'),
 
             ]);
         return response($comment);
@@ -31,7 +31,7 @@ class CommentController extends Controller
 
         $comment->update([
                 'id' => $request->input('id'),
-                'name' => $request->input('name'),
+                'comment' => $request->input('comment'),
             ]);
 
         return response($comment);

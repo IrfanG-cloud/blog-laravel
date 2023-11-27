@@ -13,6 +13,6 @@ class TagSeeder extends Seeder
      */
     public function run(): void
     {
-        App\Models\Tag::factory()->count(10)->create();
+        App\Models\Tag::factory()->count(15)->create();
     }
 }
