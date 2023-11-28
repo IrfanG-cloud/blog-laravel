@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+     return view('welcome');
+   // print_r(app()->make('redis'));
 });
 Route::get('/hello', function () {
     return config('app.name');

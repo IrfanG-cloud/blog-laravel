@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,11 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', 'App\Http\Controllers\AuthController@login');
 Route::post('register', 'App\Http\Controllers\AuthController@register');
-Route::get('hello', function () {
-    return 'Hello World';
-});
 
-Route::group(['middleware' => 'auth:api'], function () {
+
+
+// Route::group(['middleware' => 'auth:api'], function () {
 
     Route::get('user', 'App\Http\Controllers\UserController@user');
     Route::put('users/info', 'App\Http\Controllers\UserController@updateInfo');
@@ -36,7 +34,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::apiResource('categories', 'App\Http\Controllers\CategoryController');
     Route::apiResource('permissions', 'App\Http\Controllers\PermissionController')->only('index');
 
-});
+// });
 
 
 // ------------ post Api -------------//

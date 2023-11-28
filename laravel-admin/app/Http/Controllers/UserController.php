@@ -11,36 +11,50 @@ use App\Http\Resources\UserResource;
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Events\UserCreatedEvent;
+use App\Events\UserUpdatedEvent;
+use Illuminate\Support\Facades\Redis;
+use App\Jobs\UserCreated;
 
 class UserController extends Controller
 {
 
     public function index(){
         
-        // \Gate::authorize('view', "users");
+        \Gate::authorize('view', "users");
+        
+        $result = Redis::get('users');
 
-        // $result = \Cache::get('users');
+        if($result){
+            return $result;
+        }
 
-        // if($result){
-        //     return $result;
-        // }
-
+        
         $users = User::with('role')->paginate();
 
         $resources = UserResource::collection($users);
 
-        \Cache::set('users', $resources, 20);
+        Redis::set('users', $resources, now()->addMinutes(5));
 
-        return UserResource::collection($users);
+        return $resources;
     }
 
     public function show($id){
 
         \Gate::authorize('view', "users");
 
-        $user = User::find($id);
+        $result = Redis::get('user_' . $id);
+
+        if($result){
+            return $result;
+        }
+
+        sleep(2);
         
-        return new UserResource($user);
+        $resources = User::find($id);
+
+        Redis::set('user_' . $id, $resources);
+        
+        return new UserResource($resources);
     }
 
     public function store(UserCreateRequest $request){
@@ -52,18 +66,27 @@ class UserController extends Controller
             + ['password' => Hash::make(1234)]
         );
 
-        event(new UserCreatedEvent($user));
+
+
+        // laravel events implementation 
+        // event(new UserCreatedEvent($user));
+        // event(new UserUpdatedEvent($user));
+
+        // Jobs
+        UserCreated::dispatch($user->email);
 
         return response(new UserResource($user), Response::HTTP_CREATED);
     }
 
     public function update(UserUpdateRequest $request, $id){
 
-        \Gate::authorize('edit', "users");
+        // \Gate::authorize('edit', "users");
         
         $user = User::find($id);
 
         $user->update($request->only('first_name', 'last_name', 'email', 'role_id'));
+
+        event(new UserUpdatedEvent($user));
 
         return response(new UserResource($user), Response::HTTP_ACCEPTED);
     }
@@ -81,7 +104,7 @@ class UserController extends Controller
     public function user()
     {
         $user = \Auth::user();
-
+        
         return (new UserResource($user))->additional([
             'data' => [
                 'permissions' => $user->permissions(),

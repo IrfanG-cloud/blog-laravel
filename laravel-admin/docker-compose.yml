@@ -1,9 +1,15 @@
 version: '3.7'
 services:
-  frontend:
-    image: antoniopapa1991/admin-frontend
+  dashboard:
+    container_name: dashboard
+    build:
+      context: ../dashboard
+      dockerfile: ../dashboard/Dockerfile
+    volumes:
+      - ../dashboard:/app
+    command: 'npm start -- --host 0.0.0.0'
     ports:
-      - 8080:80
+      - 4200:4200
     depends_on:
       - backend
     networks:
@@ -19,6 +25,7 @@ services:
       DB_DATABASE: admin
       DB_USERNAME: root
       DB_PASSWORD: root
+      REDIS_HOST: redis
     ports:
       - 8000:8000
     volumes:
@@ -47,7 +54,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: pma
+    container_name: pma_a
     links:
       - db:db
     environment:
@@ -62,12 +69,14 @@ services:
       - 8081:80
     networks:
       - app
-
+  
   redis:
     container_name: redis
     image: redis:latest
     ports:
       - 6379:6379
+    networks:
+      - app
   
   mailcatcher:
     container_name: mailcatcher

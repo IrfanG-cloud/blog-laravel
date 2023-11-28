@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  email_queue:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    command: 'php artisan queue:work'
+    environment:
+      DB_HOST: emails_db
+      DB_DATABASE: admin
+      DB_USERNAME: root
+      DB_PASSWORD: root
+    depends_on:
+      - emails_db
+
+  emails_db:
+    container_name: emails_db
+    image: mysql:5.7.22
+    restart: always
+    environment:
+      MYSQL_DATABASE: admin
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - .dbdata/emails:/var/lib/mysql
+    ports:
+      - 33067:3306

@@ -6,9 +6,11 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
-use App\Events\UserCreatedEvent;
-use App\Listeners\NotifyUserCreatedAdminListener;
-use App\Listeners\NotifyUserCreatedUserListener;
+// use App\Events\UserCreatedEvent;
+use App\Events\UserUpdatedEvent;
+// use App\Listeners\NotifyUserCreatedAdminListener;
+// use App\Listeners\NotifyUserCreatedUserListener;
+use App\Listeners\NotifyUserCacheFlush;
 
 
 class EventServiceProvider extends ServiceProvider
@@ -22,9 +24,12 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        UserCreatedEvent::class => [
-            NotifyUserCreatedAdminListener::class,
-            NotifyUserCreatedUserListener::class
+        // UserCreatedEvent::class => [
+        //     NotifyUserCreatedAdminListener::class,
+        //     NotifyUserCreatedUserListener::class
+        // ],
+        UserUpdatedEvent::class => [
+            NotifyUserCacheFlush::class,
         ]
     ];
 
