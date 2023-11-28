@@ -18,14 +18,14 @@ Route::post('login', 'App\Http\Controllers\AuthController@login');
 Route::post('register', 'App\Http\Controllers\AuthController@register');
 
 
+ Route::group(['middleware' => 'auth:api'], function () {
 
-// Route::group(['middleware' => 'auth:api'], function () {
-
+    Route::post('logout', 'App\Http\Controllers\AuthController@logout');
     Route::get('user', 'App\Http\Controllers\UserController@user');
     Route::put('users/info', 'App\Http\Controllers\UserController@updateInfo');
     Route::put('users/password', 'App\Http\Controllers\UserController@updatePassword');
 
-    // Route::apiResource('users', 'App\Http\Controllers\UserController');
+    Route::apiResource('users', 'App\Http\Controllers\UserController');
     Route::apiResource('posts', 'App\Http\Controllers\PostController');
     Route::apiResource('comments', 'App\Http\Controllers\CommentController');
     Route::apiResource('medias', 'App\Http\Controllers\MediaController');
@@ -34,7 +34,7 @@ Route::post('register', 'App\Http\Controllers\AuthController@register');
     Route::apiResource('categories', 'App\Http\Controllers\CategoryController');
     Route::apiResource('permissions', 'App\Http\Controllers\PermissionController')->only('index');
 
-// });
+});
 
 
 // ------------ post Api -------------//

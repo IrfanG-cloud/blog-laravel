@@ -23,10 +23,11 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-    //    Passport::loadKeysFrom(__DIR__.'/../secrets/oauth');
+       // Passport::loadKeysFrom(__DIR__.'/../secrets/oauth');
+
        $this->registerPolicies();
 
-       //Passport::routes();
+        // Passport::routes();
 
         Gate::define('view', function (User $user, $model) {
             return $user->hasAccess("view_{$model}") || $user->hasAccess("edit_{$model}");

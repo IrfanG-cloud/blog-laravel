@@ -35,16 +35,16 @@ export class DashboardComponent implements OnInit {
       }
     });
 
-    this.orderService.chart().subscribe(
-      (result: { date: string, sum: number }[]) => {
-        chart.load({
-          columns: [
-            ['x', ...result.map(r => r.date)],
-            ['Sales', ...result.map(r => r.sum)]
-          ]
-        });
-      }
-    );
+    // this.orderService.chart().subscribe(
+    //   (result: { date: string, sum: number }[]) => {
+    //     chart.load({
+    //       columns: [
+    //         ['x', ...result.map(r => r.date)],
+    //         ['Sales', ...result.map(r => r.sum)]
+    //       ]
+    //     });
+    //   }
+    // );
   }
 
 }

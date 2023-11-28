@@ -19,28 +19,27 @@ class UserController extends Controller
 {
 
     public function index(){
-        
-        \Gate::authorize('view', "users");
-        
-        $result = Redis::get('users');
 
-        if($result){
-            return $result;
-        }
+        // \Gate::authorize('view', "users");
 
-        
+        // $result = Redis::get('users');
+
+        // if($result){
+        //     return $result;
+        // }
+
         $users = User::with('role')->paginate();
 
         $resources = UserResource::collection($users);
 
-        Redis::set('users', $resources, now()->addMinutes(5));
+        // Redis::set('users', $resources, now()->addMinutes(5));
 
         return $resources;
     }
 
     public function show($id){
 
-        \Gate::authorize('view', "users");
+        // \Gate::authorize('view', "users");
 
         $result = Redis::get('user_' . $id);
 
@@ -49,18 +48,18 @@ class UserController extends Controller
         }
 
         sleep(2);
-        
+
         $resources = User::find($id);
 
         Redis::set('user_' . $id, $resources);
-        
+
         return new UserResource($resources);
     }
 
     public function store(UserCreateRequest $request){
-        
+
         // \Gate::authorize('edit', "users");
-        
+
         $user = User::create(
             $request->only('first_name', 'last_name', 'email', 'role_id')
             + ['password' => Hash::make(1234)]
@@ -68,7 +67,7 @@ class UserController extends Controller
 
 
 
-        // laravel events implementation 
+        // laravel events implementation
         // event(new UserCreatedEvent($user));
         // event(new UserUpdatedEvent($user));
 
@@ -81,7 +80,7 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request, $id){
 
         // \Gate::authorize('edit', "users");
-        
+
         $user = User::find($id);
 
         $user->update($request->only('first_name', 'last_name', 'email', 'role_id'));
@@ -94,8 +93,8 @@ class UserController extends Controller
 
     public function destroy($id){
 
-        \Gate::authorize('edit', "users");
-        
+        // \Gate::authorize('edit', "users");
+
         User::destroy($id);
 
         return response(null, Response::HTTP_NO_CONTENT);
@@ -103,8 +102,9 @@ class UserController extends Controller
 
     public function user()
     {
-        $user = \Auth::user();
-        
+
+        // $user = \Auth::user();
+
         return (new UserResource($user))->additional([
             'data' => [
                 'permissions' => $user->permissions(),

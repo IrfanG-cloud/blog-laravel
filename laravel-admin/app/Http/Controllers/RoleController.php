@@ -9,13 +9,13 @@ use App\Http\Resources\RoleResource;
 
 class RoleController extends Controller
 {
-    
+
     public function index()
     {
-        return RoleResource::collection(Role::all());
+        return RoleResource::collection(Role::paginate());
     }
 
-    
+
     public function store(Request $request)
     {
         $role = Role::create($request->only('name'));
@@ -32,13 +32,13 @@ class RoleController extends Controller
         return response(new RoleResource($role), Response::HTTP_CREATED);
     }
 
-    
+
     public function show(string $id)
     {
         return new RoleResource(Role::find($id));
     }
 
-    
+
     public function update(Request $request, string $id)
     {
         $role = Role::find($id);
@@ -59,12 +59,12 @@ class RoleController extends Controller
         return response(new RoleResource($role), Response::HTTP_ACCEPTED);
     }
 
-    
-    
+
+
     public function destroy(string $id)
     {
         \DB::table('role_permission')->where('role_id', $id)->delete();
-        
+
         Role::destroy($id);
 
         return response(null, Response::HTTP_NO_CONTENT);
