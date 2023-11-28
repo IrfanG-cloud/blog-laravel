@@ -16,11 +16,11 @@ class AuthController extends Controller
 
         if (Auth::attempt($request->only('email', 'password'))) {
             $user = Auth::user();
-            
+
             $token = $user->createToken('admin')->accessToken;
 
             $cookie = \cookie('jwt', $token, 3600);
-            
+
             return \response([
                 'token' => $token,
             ])->withCookie($cookie);
