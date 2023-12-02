@@ -1,19 +1,19 @@
 version: '3.7'
 services:
-  dashboard:
-    container_name: dashboard
-    build:
-      context: ../dashboard
-      dockerfile: ../dashboard/Dockerfile
-    volumes:
-      - ../dashboard:/app
-    command: 'npm start -- --host 0.0.0.0'
-    ports:
-      - 4200:4200
-    depends_on:
-      - backend
-    networks:
-      - app
+  # dashboard:
+  #   container_name: dashboard
+  #   build:
+  #     context: ../dashboard
+  #     dockerfile: ../dashboard/Dockerfile
+  #   volumes:
+  #     - ../dashboard:/app
+  #   command: 'npm start -- --host 0.0.0.0'
+  #   ports:
+  #     - 4200:4200
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - app
 
   backend:
     container_name: admin_api

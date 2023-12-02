@@ -19,6 +19,12 @@ import { ProductCreateComponent } from './products/product-create/product-create
 import { UploadComponent } from './components/upload/upload.component';
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
 import { OrdersComponent } from './orders/orders.component';
+import { PostsComponent } from './posts/posts.component';
+import { PostCreateComponent } from './posts/post-create/post-create.component';
+import { PostEditComponent } from './posts/post-edit/post-edit.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { CategoryCreateComponent } from './categories/category-create/category-create.component';
+import { CategoryEditComponent } from './categories/category-edit/category-edit.component';
 
 
 @NgModule({
@@ -39,6 +45,12 @@ import { OrdersComponent } from './orders/orders.component';
     ProductCreateComponent,
     UploadComponent,
     ProductEditComponent,
+    PostsComponent,
+    PostCreateComponent,
+    PostEditComponent,
+    CategoriesComponent,
+    CategoryCreateComponent,
+    CategoryEditComponent,
     OrdersComponent
   ],
   exports: [

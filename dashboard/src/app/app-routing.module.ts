@@ -16,6 +16,12 @@ import {ProductsComponent} from './secure/products/products.component';
 import {ProductCreateComponent} from './secure/products/product-create/product-create.component';
 import {ProductEditComponent} from './secure/products/product-edit/product-edit.component';
 import {OrdersComponent} from './secure/orders/orders.component';
+import { PostCreateComponent } from './secure/posts/post-create/post-create.component';
+import { PostEditComponent } from './secure/posts/post-edit/post-edit.component';
+import { PostsComponent } from './secure/posts/posts.component';
+// import { CategoryEditComponent } from './secure/categories/category-edit/category-edit.component';
+// import { CategoryCreateComponent } from './secure/categories/category-create/category-create.component';
+import { CategoriesComponent } from './secure/categories/categories.component';
 
 const routes: Routes = [
   {
@@ -34,6 +40,12 @@ const routes: Routes = [
       {path: 'products', component: ProductsComponent},
       {path: 'products/create', component: ProductCreateComponent},
       {path: 'products/:id/edit', component: ProductEditComponent},
+      {path: 'posts', component: PostsComponent},
+      {path: 'posts/create', component: PostCreateComponent},
+      {path: 'posts/:id/edit', component: PostEditComponent},
+      {path: 'categories', component: CategoriesComponent},
+      // {path: 'categoreis/create', component: CategoryCreateComponent},
+      // {path: 'categories/:id/edit', component: CategoryEditComponent},
       {path: 'orders', component: OrdersComponent},
     ]
   },

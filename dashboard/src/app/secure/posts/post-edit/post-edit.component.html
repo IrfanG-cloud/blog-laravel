@@ -1,0 +1,31 @@
+<form [formGroup]="form" (submit)="submit()">
+  <div class="mb-3">
+    <label>Slug</label>
+    <input class="form-control" name="slug" formControlName="slug">
+  </div>
+  <div class="mb-3">
+    <label>Title</label>
+    <input class="form-control" name="title" formControlName="title">
+  </div>
+  <div class="mb-3">
+    <label>Subtitle</label>
+    <input class="form-control" name="subtitle" formControlName="subtitle">
+  </div>
+  <div class="mb-3">
+    <label>Content Raw</label>
+    <input class="form-control" name="content_raw" formControlName="content_raw">
+  </div>
+  <div class="mb-3">
+    <label>Post Image</label>
+    <input class="form-control" name="post_image" formControlName="post_image">
+  </div>
+  <div class="mb-3">
+    <label>Meta Description</label>
+    <input class="form-control" name="meta_decription" formControlName="meta_decription">
+  </div>
+  <div class="mb-3">
+    <label>Layout</label>
+    <input class="form-control" name="layout" formControlName="layout">
+  </div>
+  <button class="btn btn-outline-secondary">Save</button>
+</form>
